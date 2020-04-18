@@ -1,0 +1,62 @@
+version: '3.6'
+
+services:
+
+### Node ##################################
+    nodejs:
+      build:
+        context: .  
+        dockerfile: Dockerfile
+      env_file: .env
+      image: nodejs
+      container_name: nodejs
+      restart: unless-stopped      
+      environment:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_HOSTNAME=mysql
+        - MYSQL_PORT=${MYSQL_PORT}
+      ports:
+        - "${PORT}:${PORT}"
+      depends_on:
+        - mysql
+      volumes:
+        - .:/home/node/app
+        # - node_modules:/home/node/app/node_modules
+      networks:
+        - app-network
+      # command: ./wait-for.sh localhost:${MYSQL_PORT} -- npm start
+  
+
+### MySQL ################################################
+    mysql:
+      # build:
+      #   context: ./mysql
+      container_name: mysql
+      image: mysql:latest
+      restart: unless-stopped
+      env_file: .env
+      environment:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_PORT=${MYSQL_PORT}
+        - TZ=${WORKSPACE_TIMEZONE}
+      volumes:     
+        - ../mysql:/var/lib/mysql
+      ports:
+        - "${MYSQL_PORT}:${MYSQL_PORT}"
+      networks:
+        - app-network
+      healthcheck:
+        test: "mysqladmin ping -h localhost -p$$MYSQL_ROOT_PASSWORD && test '0' -eq $$(ps aux | awk '{print $$11}' | grep -c -e '^mysql$$')"
+        
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql:
+  node_modules:          
