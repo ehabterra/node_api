@@ -26,7 +26,7 @@ wd="$PWD"
 run() {
     case $1 in
         "start")
-            ${c} && ${d} up -d
+            ${c} && ${d} up -d mysql && ${d} up -d nodejs
             ;;
         "stop")
             ${c} && ${d} stop
@@ -44,10 +44,10 @@ run() {
             ${c} && ${d} restart
             ;;
         "rebuild_then_start")
-            ${c} && ${d} up --build -d
+            ${c} && ${d} up --build -d mysql && ${d} up --build -d nodejs
             ;;
         "recreate_then_start")
-            ${c} && ${d} up -d --force-recreate
+            ${c} && ${d} up -d --force-recreate mysql && ${d} up --force-recreate -d nodejs
             ;;
         "nodejs_bash")
             ${c} && ${d} exec nodejs bash
@@ -75,6 +75,18 @@ run() {
             ;;
         "nodejs_build")
             ${c} && ${d} exec nodejs ./node_modules/.bin/tsc
+            ;;
+        "migrate")
+            ${c} && ${d} exec nodejs npx sequelize-cli db:migrate
+            ;;
+        "migrate_undo")
+            ${c} && ${d} exec nodejs npx sequelize-cli db:migrate:undo
+            ;;
+        "seed_all")
+            ${c} && ${d} exec nodejs npx sequelize-cli db:seed:all
+            ;;
+        "seed_undo_all")
+            ${c} && ${d} exec nodejs npx sequelize-cli db:seed:undo:all
             ;;
         *)
             echo invalid option
@@ -106,6 +118,10 @@ else
         "nodejs_dev"
         "nodejs_start"
         "nodejs_build"
+        "migrate"
+        "migrate_undo"
+        "seed_all"
+        "seed_undo_all"
     )
     select option in "${options[@]}"
     do

@@ -1,0 +1,35 @@
+require('dotenv').config(); // this is important!
+
+const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "test"
+const MYSQL_USER = process.env.MYSQL_USER || "test"
+const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "test"
+const MYSQL_SERVER = process.env.MYSQL_SERVER || "localhost1"
+
+console.log(`sever: ${MYSQL_SERVER}`);
+
+module.exports = {
+  "development": {
+    "username": MYSQL_USER,
+    "password": MYSQL_PASSWORD,
+    "database": MYSQL_DATABASE,
+    "host": MYSQL_SERVER,
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "default",
+    "password": "secret",
+    "database": "todd_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "default",
+    "password": "secret",
+    "database": "todd",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  }
+}
