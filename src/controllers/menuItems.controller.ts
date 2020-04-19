@@ -1,79 +1,75 @@
-// src/controllers/restaurants.controller.ts
+// src/controllers/menuItems.controller.ts
 import { Request, Response } from "express";
-import { Restaurant, RestaurantInterface } from "../models/restaurant.model";
+import { MenuItem, MenuItemInterface } from "../models/menuItem.model";
 import { UpdateOptions, DestroyOptions } from "sequelize";
 
-export class RestaurantsController {
+export class MenuItemsController {
   
     /**
    * @swagger
    *
-   * /api/v1/restaurants:
+   * /api/v1/menuitems:
    *   get:
-   *     description: get all restaurants
+   *     description: get all menu items
    *     produces:
    *       - application/json
    *     responses:
    *       200:
-   *         description: all restaurants
+   *         description: all menu items
    */
   public index(req: Request, res: Response) {
-    Restaurant.findAll<Restaurant>({})
-      .then((restaurants: Array<Restaurant>) => res.json(restaurants))
+    MenuItem.findAll<MenuItem>({})
+      .then((menuItems: Array<MenuItem>) => res.json(menuItems))
       .catch((err: Error) => res.status(500).json(err));
   }
 
     /**
    * @swagger
    *
-   * /api/v1/restaurants:
+   * /api/v1/menuitems:
    *   post:
    *     description: Create new user
    *     produces:
    *       - application/json
    *     parameters:
-   *       - name: name
+   *       - name: item
    *         in: formData
    *         required: true
    *         type: string
-   *       - name: website
+   *       - name: price
+   *         in: formData
+   *         required: false
+   *         type: number
+   *       - name: description
    *         in: formData
    *         required: false
    *         type: string
-   *       - name: email
+   *       - name: category
    *         in: formData
    *         required: false
    *         type: string
-   *       - name: menuId
+   *       - name: restaurantId
    *         in: formData
    *         required: false
    *         type: integer
-   *       - name: latitude
-   *         in: formData
-   *         required: false
-   *         type: number
-   *       - name: longitude
-   *         in: formData
-   *         required: false
-   *         type: number
    *     responses:
    *       200:
-   *         description: restaurant created
+   *         description: menu item created
    */
   public create(req: Request, res: Response) {
-    const params: RestaurantInterface = req.body;
+    const params: MenuItemInterface = req.body;
 
-    Restaurant.create<Restaurant>(params)
-      .then((restaurant: Restaurant) => res.status(201).json(restaurant))
+    MenuItem.create<MenuItem>(params)
+      .then((menuItem: MenuItem) => res.status(201).json(menuItem))
       .catch((err: Error) => res.status(500).json(err));
   }
 
    /**
    * @swagger
    *
-   * /api/v1/restaurants/{id}:
+   * /api/v1/menuitems/{id}:
    *   get:
-   *     description: Find restaurant by id
+   *     description: Find menu item by id
    *     produces:
    *       - application/json
    *     parameters:
@@ -84,17 +80,17 @@ export class RestaurantsController {
    *         type: integer
    *     responses:
    *       200:
-   *         description: get restaurant data
+   *         description: get menu item data
    */  
   public show(req: Request, res: Response) {
-    const restaurantId: number = parseInt(req.params.id);
+    const menuItemId: number = parseInt(req.params.id);
 
-    Restaurant.findByPk<Restaurant>(restaurantId)
-      .then((restaurant: Restaurant | null) => {
-        if (restaurant) {
-          res.json(restaurant);
+    MenuItem.findByPk<MenuItem>(menuItemId)
+      .then((menuItem: MenuItem | null) => {
+        if (menuItem) {
+          res.json(menuItem);
         } else {
-          res.status(404).json({ errors: ["Restaurant not found"] });
+          res.status(404).json({ errors: ["MenuItem not found"] });
         }
       })
       .catch((err: Error) => res.status(500).json(err));
@@ -103,50 +99,46 @@ export class RestaurantsController {
    /**
    * @swagger
    *
-   * /api/v1/restaurants/{id}:
+   * /api/v1/menuitems/{id}:
    *   put:
-   *     description: Update restaurant data
+   *     description: Update menu item data
    *     produces:
    *       - application/json
    *     parameters:
-   *       - name: name
+   *       - name: item
    *         in: formData
    *         required: true
    *         type: string
-   *       - name: website
+   *       - name: price
+   *         in: formData
+   *         required: false
+   *         type: number
+   *       - name: description
    *         in: formData
    *         required: false
    *         type: string
-   *       - name: email
+   *       - name: category
    *         in: formData
    *         required: false
    *         type: string
-   *       - name: menuId
+   *       - name: restaurantId
    *         in: formData
    *         required: false
    *         type: integer
-   *       - name: latitude
-   *         in: formData
-   *         required: false
-   *         type: number
-   *       - name: longitude
-   *         in: formData
-   *         required: false
-   *         type: number
    *     responses:
    *       200:
-   *         description: restaurant updated
+   *         description: menu item updated
    */  
   public update(req: Request, res: Response) {
-    const restaurantId: number = parseInt(req.params.id);
-    const params: RestaurantInterface = req.body;
+    const menuItemId: number = parseInt(req.params.id);
+    const params: MenuItemInterface = req.body;
 
     const update: UpdateOptions = {
-      where: { id: restaurantId },
+      where: { id: menuItemId },
       limit: 1
     };
 
-    Restaurant.update(params, update)
+    MenuItem.update(params, update)
       .then(() => res.status(202).json({ data: "success" }))
       .catch((err: Error) => res.status(500).json(err));
   }
@@ -154,9 +146,9 @@ export class RestaurantsController {
     /**
    * @swagger
    *
-   * /api/v1/restaurants/{id}:
+   * /api/v1/menuitems/{id}:
    *   delete:
-   *     description: Delete a restaurant
+   *     description: Delete a menu item
    *     produces:
    *       - application/json
    *     parameters:
@@ -165,16 +157,16 @@ export class RestaurantsController {
    *         type: integer
    *     responses:
    *       200:
-   *         description: restaurant deleted
+   *         description: menu item deleted
    */  
   public delete(req: Request, res: Response) {
-    const restaurantId: number = parseInt(req.params.id);
+    const menuItemId: number = parseInt(req.params.id);
     const options: DestroyOptions = {
-      where: { id: restaurantId },
+      where: { id: menuItemId },
       limit: 1
     };
 
-    Restaurant.destroy(options)
+    MenuItem.destroy(options)
       .then(() => res.status(204).json({ data: "success" }))
       .catch((err: Error) => res.status(500).json(err));
   }

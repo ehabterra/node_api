@@ -1,6 +1,6 @@
-// import * as dotenv from "dotenv";
+import * as dotenv from "dotenv";
 
-// dotenv.config();
+dotenv.config();
 // let path;
 // switch (process.env.NODE_ENV) {
 //   case "test":

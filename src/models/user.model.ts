@@ -5,9 +5,12 @@ import bcrypt from 'bcrypt';
 
 export class User extends Model {
   public id!: number;
-  public name!: string;
+  public firstname!: string;
+  public lastname!: string;
+  public username!: string;
   public email!: string;
   public password!: string;
+  public role!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
@@ -22,7 +25,9 @@ export class User extends Model {
 }
 
 export interface UserInterface {
-  name: string;
+  firstname: string;
+  lastname: string;
+  username: string;
   email: string;
 }
 
@@ -33,7 +38,15 @@ User.init(
         autoIncrement: true,
         primaryKey: true
       },
-      name: {
+      firstname: {
+        type: new DataTypes.STRING(250),
+        allowNull: false,
+      },
+      lastname: {
+        type: new DataTypes.STRING(250),
+        allowNull: false,
+      },
+      username: {
         type: new DataTypes.STRING(250),
         allowNull: false,
         unique: true
@@ -42,6 +55,10 @@ User.init(
         type: new DataTypes.STRING(250),
         allowNull: false,
         unique: true
+      },
+      role: {
+        type: new DataTypes.STRING(100),
+        allowNull: false,
       },
       password: {
         type: new DataTypes.STRING(250),
@@ -54,10 +71,29 @@ User.init(
     }
   );
 
+  User.beforeValidate(async user => {
+    if (!user.role || user.role == '') {
+      user.role = 'USER'
+    }
+
+  });
+
   User.afterValidate(async user => {
     if (user.password && user.password != '') {
       user.password = await user.generatePasswordHash()
     }
   });
   
-  User.sync({ alter: true }).then(() => console.log("User table created"));
+  User.sync({ force: true }).then(() => {
+    
+    User.create({
+      firstname: 'admin',
+      lastname: 'admin',
+      username: 'admin',
+      email: 'admin@admin.com',
+      password: 'password',
+      role: 'ADMIN'
+    }).then((newUser: User) => console.log(newUser.id, newUser.username, newUser.role));
+    
+    console.log("User table created")
+  });

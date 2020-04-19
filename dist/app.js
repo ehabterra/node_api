@@ -18,12 +18,13 @@ const compression_1 = __importDefault(require("compression"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const jsdoc_1 = require("./utils/jsdoc");
 class App {
     constructor() {
         this.routePrv = new routes_1.Routes();
         this.app = express_1.default();
         this.config();
-        this.routePrv.routes(this.app);
     }
     config() {
         this.app.use(bodyParser.json());
@@ -33,6 +34,16 @@ class App {
         this.app.use(helmet_1.default());
         this.app.use(compression_1.default());
         this.app.use(morgan_1.default("combined"));
+        // add routes
+        this.routePrv.routes(this.app);
+        // console.log(specs)
+        this.app.use('/swagger', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(jsdoc_1.specs));
+        // this.app._router.stack.forEach((r: any) => {
+        //   if (r.route && r.route.path){
+        //     console.log(r)
+        //   }
+        // })
+        // this.app.use('/api/v1', this.app._router);
     }
 }
 exports.default = new App().app;

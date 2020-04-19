@@ -36,7 +36,15 @@ User.init({
         autoIncrement: true,
         primaryKey: true
     },
-    name: {
+    firstname: {
+        type: new sequelize_1.DataTypes.STRING(250),
+        allowNull: false,
+    },
+    lastname: {
+        type: new sequelize_1.DataTypes.STRING(250),
+        allowNull: false,
+    },
+    username: {
         type: new sequelize_1.DataTypes.STRING(250),
         allowNull: false,
         unique: true
@@ -59,4 +67,4 @@ User.afterValidate((user) => __awaiter(void 0, void 0, void 0, function* () {
         user.password = yield user.generatePasswordHash();
     }
 }));
-User.sync({ alter: true }).then(() => console.log("User table created"));
+User.sync({ force: false }).then(() => console.log("User table created"));

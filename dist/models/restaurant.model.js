@@ -18,18 +18,22 @@ Restaurant.init({
     },
     website: {
         type: new sequelize_1.DataTypes.STRING(250),
-        allowNull: false,
+        allowNull: true,
     },
     email: {
         type: new sequelize_1.DataTypes.STRING(250),
-        allowNull: false,
+        allowNull: true,
     },
-    menuId: {
-        type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+    latitude: {
+        type: sequelize_1.DataTypes.DOUBLE,
+        allowNull: true,
+    },
+    longitude: {
+        type: sequelize_1.DataTypes.DOUBLE,
         allowNull: true,
     },
 }, {
     tableName: "restaurants",
     sequelize: database_1.database // this bit is important
 });
-Restaurant.sync({ alter: true }).then(() => console.log("Restaurant table created"));
+Restaurant.sync({ force: true }).then(() => console.log("Restaurant table created"));

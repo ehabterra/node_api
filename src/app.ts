@@ -1,11 +1,13 @@
 // src/app.ts
 import express from "express";
-import * as bodyParser from "body-parser";
-import { Routes } from "./config/routes";
+import * as bodyParser from "body-parser"
+import { Routes } from "./config/routes"
 import compression from 'compression'
 import cors from 'cors'
 import helmet from "helmet"
 import morgan from "morgan"
+import swaggerUi from 'swagger-ui-express'
+import { specs } from './utils/jsdoc'
 
 class App {
   public app: express.Application;
@@ -14,7 +16,6 @@ class App {
   constructor() {
     this.app = express();
     this.config();
-    this.routePrv.routes(this.app);
   }
 
   private config(): void {
@@ -26,6 +27,20 @@ class App {
     this.app.use(helmet())
     this.app.use(compression())
     this.app.use(morgan("combined"))
+
+    // add routes
+    this.routePrv.routes(this.app);
+
+    // console.log(specs)
+    this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs));
+
+    // this.app._router.stack.forEach((r: any) => {
+    //   if (r.route && r.route.path){
+    //     console.log(r)
+    //   }
+    // })
+    
+    // this.app.use('/api/v1', this.app._router);
   }
 }
 
