@@ -75,6 +75,8 @@ export class AuthController {
    * /api/v1/change-password:
    *   post:
    *     description: Change password
+   *     security:
+   *       - bearerAuth: []
    *     produces:
    *       - application/json
    *     parameters:

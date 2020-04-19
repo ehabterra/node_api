@@ -11,6 +11,8 @@ export class MenuItemsController {
    * /api/v1/menuitems:
    *   get:
    *     description: get all menu items
+   *     security:
+   *       - bearerAuth: []
    *     produces:
    *       - application/json
    *     responses:
@@ -29,6 +31,8 @@ export class MenuItemsController {
    * /api/v1/menuitems:
    *   post:
    *     description: Create new user
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
@@ -70,6 +74,8 @@ export class MenuItemsController {
    * /api/v1/menuitems/{id}:
    *   get:
    *     description: Find menu item by id
+   *     security:
+   *       - bearerAuth: []
    *     produces:
    *       - application/json
    *     parameters:
@@ -102,6 +108,8 @@ export class MenuItemsController {
    * /api/v1/menuitems/{id}:
    *   put:
    *     description: Update menu item data
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
@@ -149,6 +157,8 @@ export class MenuItemsController {
    * /api/v1/menuitems/{id}:
    *   delete:
    *     description: Delete a menu item
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:

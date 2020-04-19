@@ -78,6 +78,8 @@ export class UsersController {
    * /api/v1/users/{id}:
    *   get:
    *     description: Find user by id
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
@@ -110,6 +112,8 @@ export class UsersController {
    * /api/v1/users/{id}:
    *   put:
    *     description: Update user data
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
@@ -167,6 +171,8 @@ export class UsersController {
    * /api/v1/users/{id}:
    *   delete:
    *     description: Delete a user
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:

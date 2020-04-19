@@ -11,6 +11,8 @@ export class RestaurantsController {
    * /api/v1/restaurants:
    *   get:
    *     description: get all restaurants
+   *     security:
+   *       - bearerAuth: []
    *     produces:
    *       - application/json
    *     responses:
@@ -29,6 +31,8 @@ export class RestaurantsController {
    * /api/v1/restaurants:
    *   post:
    *     description: Create new user
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
@@ -74,6 +78,8 @@ export class RestaurantsController {
    * /api/v1/restaurants/{id}:
    *   get:
    *     description: Find restaurant by id
+   *     security:
+   *       - bearerAuth: []
    *     produces:
    *       - application/json
    *     parameters:
@@ -106,6 +112,8 @@ export class RestaurantsController {
    * /api/v1/restaurants/{id}:
    *   put:
    *     description: Update restaurant data
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
@@ -157,6 +165,8 @@ export class RestaurantsController {
    * /api/v1/restaurants/{id}:
    *   delete:
    *     description: Delete a restaurant
+   *     security:
+   *       - bearerAuth: [ADMIN]
    *     produces:
    *       - application/json
    *     parameters:
