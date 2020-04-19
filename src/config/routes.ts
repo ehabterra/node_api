@@ -43,10 +43,10 @@ export class Routes {
   
 
     // menus
-    app.route("/api/v1/menuitem").get([checkJwt], this.menuItemsController.index)
+    app.route("/api/v1/menuitems").get([checkJwt], this.menuItemsController.index)
     .post([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.create);
 
-    app.route("/api/v1/menuitem/:id")
+    app.route("/api/v1/menuitems/:id")
     .get([checkJwt], this.menuItemsController.show)
     .put([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.update)
     .delete([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.delete);  

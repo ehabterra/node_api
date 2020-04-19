@@ -52,7 +52,6 @@ Restaurant.init(
   }
 );
 
-Restaurant.sync({ force: true }).then(() => {
   // Here we associate which actually populates out pre-declared `association` static and other methods.
   Restaurant.hasMany(MenuItem, {
     sourceKey: 'id',
@@ -62,6 +61,16 @@ Restaurant.sync({ force: true }).then(() => {
 
   MenuItem.belongsTo(Restaurant, { targetKey: 'id' });
 
-  console.log("Restaurant table created")
-});
+// Restaurant.sync({ force: true }).then(() => {
+//   // Here we associate which actually populates out pre-declared `association` static and other methods.
+//   Restaurant.hasMany(MenuItem, {
+//     sourceKey: 'id',
+//     foreignKey: 'restaurantId',
+//     as: 'Menu' // this determines the name in `associations`!
+//   });
+
+//   MenuItem.belongsTo(Restaurant, { targetKey: 'id' });
+
+//   console.log("Restaurant table created")
+// });
 

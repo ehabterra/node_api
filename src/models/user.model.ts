@@ -84,16 +84,16 @@ User.init(
     }
   });
   
-  User.sync({ force: true }).then(() => {
+  // User.sync({ force: true }).then(() => {
     
-    User.create({
-      firstname: 'admin',
-      lastname: 'admin',
-      username: 'admin',
-      email: 'admin@admin.com',
-      password: 'password',
-      role: 'ADMIN'
-    }).then((newUser: User) => console.log(newUser.id, newUser.username, newUser.role));
+  //   User.create({
+  //     firstname: 'admin',
+  //     lastname: 'admin',
+  //     username: 'admin',
+  //     email: 'admin@admin.com',
+  //     password: 'password',
+  //     role: 'ADMIN'
+  //   }).then((newUser: User) => console.log(newUser.id, newUser.username, newUser.role));
     
-    console.log("User table created")
-  });
+  //   console.log("User table created")
+  // });

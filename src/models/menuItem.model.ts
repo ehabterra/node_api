@@ -51,4 +51,4 @@ MenuItem.init(
     }
   );
   
-  MenuItem.sync({ force: true }).then(() => console.log("MenuItem table created"));
+  // MenuItem.sync({ force: true }).then(() => console.log("MenuItem table created"));

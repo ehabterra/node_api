@@ -31,6 +31,9 @@ run() {
         "stop")
             ${c} && ${d} stop
             ;;
+        "stop_nodejs")
+            ${c} && ${d} stop nodejs
+            ;;
         "down")
             ${c} && ${d} down
             ;;
@@ -88,6 +91,7 @@ else
     options=(
         "start"
         "stop"
+        "stop_nodejs"
         "down"
         "restart_nodejs"
         "restart_all"

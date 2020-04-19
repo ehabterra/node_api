@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "default",
+    "password": "secret",
+    "database": "todd_dev",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "default",
+    "password": "secret",
+    "database": "todd_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "default",
+    "password": "secret",
+    "database": "todd",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  }
+}
