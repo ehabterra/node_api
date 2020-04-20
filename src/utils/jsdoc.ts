@@ -26,7 +26,7 @@ const options = {
                 in: 'header',
             },
         },
-        host: "localhost:3000", // the host or url of the app
+        // host: "localhost:3000", // the host or url of the app
         basePath: "/", // the basepath of your endpoin
     },
     explorer: true,
