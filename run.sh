@@ -99,33 +99,70 @@ if [ ! -z "$1" ]
         option="$1"
         run ${option}
 else
-    PS3='Please enter your choice: '
+PS3='Please enter your choice: '
     options=(
-        "start"
-        "stop"
-        "stop_nodejs"
-        "down"
-        "restart_nodejs"
-        "restart_all"
-        "rebuild_then_start"
-        "recreate_then_start"
-        "nodejs_bash"
-        "mysql_bash"
-        "mysql_logs"
-        "nodejs_logs"
-        "list_containers"
-        "start_docker_service"
-        "nodejs_dev"
-        "nodejs_start"
-        "nodejs_build"
-        "migrate"
-        "migrate_undo"
-        "seed_all"
-        "seed_undo_all"
+        "containers"
+        "commands"
+        "database"        
     )
     select option in "${options[@]}"
     do
-        run ${option}
+        case $option in
+        "containers")
+            PS3='Please enter your choice: '
+            options=(
+                "start"
+                "stop"
+                "stop_nodejs"
+                "down"
+                "restart_nodejs"
+                "restart_all"
+                "rebuild_then_start"
+                "recreate_then_start"
+                "list_containers"
+                "start_docker_service"
+            )
+            select option in "${options[@]}"
+            do
+                run ${option}
+                break
+            done
+            ;;
+        "commands")
+            PS3='Please enter your choice: '
+            options=(
+                "nodejs_bash"
+                "mysql_bash"
+                "mysql_logs"
+                "nodejs_logs"
+                "nodejs_dev"
+                "nodejs_start"
+                "nodejs_build"
+            )
+            select option in "${options[@]}"
+            do
+                run ${option}
+                break
+            done
+            ;;
+        "database")
+            PS3='Please enter your choice: '
+            options=(
+                "migrate"
+                "migrate_undo"
+                "seed_all"
+                "seed_undo_all"
+            )
+            select option in "${options[@]}"
+            do
+                run ${option}
+                break
+            done
+            ;;
+        *)
+            echo invalid option
+            ;;
+    esac
         break
     done
 fi
