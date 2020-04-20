@@ -2,7 +2,7 @@
 import "./utils/config"
 import app from "./app";
 const PORT: number = parseInt(process.env.PORT || '3100');
-const HOSTNAME = process.env.HOSTNAME || 'localhost';
+const MYHOSTNAME = process.env.MYHOSTNAME || 'localhost';
 
 // console.log(`Database: ${process.env.Database}`);
-app.listen(PORT, HOSTNAME, () => console.log(`Example app listening on port ${HOSTNAME}:${PORT}!`));
+app.listen(PORT, MYHOSTNAME, () => console.log(`Example app listening on port ${MYHOSTNAME}:${PORT}!`));
