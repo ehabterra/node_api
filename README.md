@@ -7,11 +7,6 @@ GoBig-API is an API backend for restaurants data. There are APIs for managing us
 ## Quick start
 
 Installing docker and [docker-compose](https://docs.docker.com/compose/install/) . I collected all important commands in run.sh file. 
-
-run.sh file categorize the commands into 3 main groups:
-1. `containers`: to manage docker container (e.g. start containers).
-2. `commands`: to run custom commands on containers except db commands.
-3. `database`: to run db commands on mysql db (e.g. migration).
  
 - Quick steps to access api using docker:
 
@@ -29,6 +24,38 @@ run.sh file categorize the commands into 3 main groups:
 ## Roles
 
 There are two roles **ADMIN** and **USER**. **ADMIN** has permission on all API calls, while  **USER** has limited permissions. `admin` user has **ADMIN** role but the newly created users will have **USER** role.
+
+## `run.sh` Bash file
+
+`run.sh` file categorize the commands into 3 main groups:
+1. `containers`: to manage docker container (e.g. start containers).
+    1. `start`: start containers.                  
+    2. `stop`: stop the containers.                    
+    3. `stop_nodejs`: just stop nodejs container.             
+    4. `down`: stop and remove containers.                    
+    5. `restart_nodejs`: restart nodejs container.
+    6. `restart_all`: restart all containers.           
+    7. `rebuild_then_start`: rebuild the existing container from scratch.
+    8. `recreate_then_start`
+    9. `list_containers`
+    10. `start_docker_service`
+    
+2. `commands`: to run custom commands on containers except db commands.
+
+    1. `nodejs_bash`
+    2. `mysql_bash`    
+    3. `mysql_logs`    
+    4. `nodejs_logs`   
+    5. `nodejs_dev`    
+    6. `nodejs_start`
+    7. `nodejs_build` 
+
+3. `database`: to run db commands on mysql db (e.g. migration).
+
+    1. `migrate`: migrate db structure.
+    2. `migrate_undo`: remove all migrations.
+    3. `seed_all`: put default data (`admin` user data).
+    4. `seed_undo_all`: remove all seed data.
 
 ## Configuration
 
