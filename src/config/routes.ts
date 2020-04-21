@@ -22,33 +22,34 @@ export class Routes {
     // users
     app.route("/api/v1/login").post(this.authController.login);
     app.route("/api/v1/change-password").post([checkJwt], this.authController.changePassword);
-    
+    app.route("/api/v1/get-user-info").get([checkJwt], this.authController.getUserInfo);
+
     app.route("/api/v1/users").get([checkJwt, checkRole(["ADMIN"])], this.usersController.index)
-    .post(this.usersController.create);
+      .post(this.usersController.create);
 
     app.route("/api/v1/users/:id")
-    .get([checkJwt, checkRole(["ADMIN"])], this.usersController.show)
-    .put([checkJwt, checkRole(["ADMIN"])], this.usersController.update)
-    .delete([checkJwt, checkRole(["ADMIN"])], this.usersController.delete);
-  
-    
+      .get([checkJwt, checkRole(["ADMIN"])], this.usersController.show)
+      .put([checkJwt, checkRole(["ADMIN"])], this.usersController.update)
+      .delete([checkJwt, checkRole(["ADMIN"])], this.usersController.delete);
+
+
     // restaurants
     app.route("/api/v1/restaurants").get([checkJwt], this.restaurantsController.index)
-    .post([checkJwt, checkRole(["ADMIN"])], this.restaurantsController.create);
+      .post([checkJwt, checkRole(["ADMIN"])], this.restaurantsController.create);
 
     app.route("/api/v1/restaurants/:id")
-    .get([checkJwt], this.restaurantsController.show)
-    .put([checkJwt, checkRole(["ADMIN"])], this.restaurantsController.update)
-    .delete([checkJwt, checkRole(["ADMIN"])], this.restaurantsController.delete);
-  
+      .get([checkJwt], this.restaurantsController.show)
+      .put([checkJwt, checkRole(["ADMIN"])], this.restaurantsController.update)
+      .delete([checkJwt, checkRole(["ADMIN"])], this.restaurantsController.delete);
+
 
     // menus
     app.route("/api/v1/menuitems").get([checkJwt], this.menuItemsController.index)
-    .post([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.create);
+      .post([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.create);
 
     app.route("/api/v1/menuitems/:id")
-    .get([checkJwt], this.menuItemsController.show)
-    .put([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.update)
-    .delete([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.delete);  
+      .get([checkJwt], this.menuItemsController.show)
+      .put([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.update)
+      .delete([checkJwt, checkRole(["ADMIN"])], this.menuItemsController.delete);
   }
 }

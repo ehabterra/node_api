@@ -91,7 +91,7 @@ export class AuthController {
    *         type: string
    *         format: password
    *     responses:
-   *       200:
+   *       204:
    *         description: password changed
    */
     public changePassword(req: Request, res: Response) {
@@ -119,6 +119,35 @@ export class AuthController {
 
                     res.status(204).send();
 
+                } else {
+                    res.status(404).json({ errors: ["User not found"] });
+                }
+            })
+            .catch((err: Error) => res.status(401).json(err));
+    };
+
+    /**
+   * @swagger
+   *
+   * /api/v1/get-user-info:
+   *   post:
+   *     description: Get user information.
+   *     security:
+   *       - bearerAuth: []
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: password changed
+   */
+    public getUserInfo(req: Request, res: Response) {
+        //Get ID from JWT
+        const id = res.locals.jwtPayload.userId;
+
+        User.findByPk<User>(id)
+            .then((user: User | null) => {
+                if (user) {
+                    res.status(200).json(user);
                 } else {
                     res.status(404).json({ errors: ["User not found"] });
                 }
