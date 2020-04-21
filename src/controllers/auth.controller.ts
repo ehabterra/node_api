@@ -61,7 +61,7 @@ export class AuthController {
                     );
 
                     //Send the jwt in the response
-                    res.status(200).json(token);
+                    res.status(200).json({ token: token});
                 } else {
                     res.status(404).json({ errors: ["User not found"] });
                 }
