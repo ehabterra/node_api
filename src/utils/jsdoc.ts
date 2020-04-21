@@ -6,17 +6,9 @@ const options = {
         // openapi: "3.0.0",
         info: {
             version: "1.0.0",
-            title: "Todd project",
+            title: "GoBig API",
             description: "Video aggregator API project"
         },
-        // securityDefinitions: {
-        //     bearerAuth: {
-        //         type: 'apiKey',
-        //         name: 'Authorization',
-        //         scheme: 'bearer',
-        //         in: 'header'
-        //     }
-        // },
         securityDefinitions: {
             bearerAuth: {
                 type: 'apiKey',
