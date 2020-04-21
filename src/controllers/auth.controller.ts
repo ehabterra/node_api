@@ -130,7 +130,7 @@ export class AuthController {
    * @swagger
    *
    * /api/v1/get-user-info:
-   *   post:
+   *   get:
    *     description: Get user information.
    *     security:
    *       - bearerAuth: []
@@ -138,7 +138,7 @@ export class AuthController {
    *       - application/json
    *     responses:
    *       200:
-   *         description: password changed
+   *         description: user information
    */
     public getUserInfo(req: Request, res: Response) {
         //Get ID from JWT
