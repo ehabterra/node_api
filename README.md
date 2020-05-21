@@ -1,8 +1,8 @@
-# GoBig-API
+# NodeJS REST API
 
 ## Introduction
 
-GoBig-API is an API backend for restaurants data. There are APIs for managing user, restaurant, and menu data.
+NodeJS REST API is an API backend for restaurants data. There are APIs for managing user, restaurant, and menu data.
 
 ## Quick start
 
