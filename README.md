@@ -63,4 +63,4 @@ Environment file `.env` file is responsible for database and other configuration
 
 ## Database storage
 
-The db engine is `mysql` but can change it to any DBMS type with few changes. You can store data wherever you want and point to it using `.env` file. When you use docker command `./run.sh start` to create and start 2 containers one for **mysql** and the other is for **nodejs**  a container. By default the data is storged in a folder `../mysql`, but you can chage it as you want from `docker-compose.yml`.
+The db engine is `mysql` but can change it to any DBMS type with few changes. You can store data wherever you want and point to it using `.env` file. You can use command `./run.sh start` to create and start 2 docker containers one of them is for **mysql** and the other is for **nodejs**. By default, the data is storged in `../mysql` directory, but you can change it as you want from `docker-compose.yml`.
